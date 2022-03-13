@@ -7,40 +7,39 @@ export type Question = {
 
 const quizQuestions: Question[] = [
   {
-    questionText: "What do the initials DB in Aston Martin DB11 stand for?",
-    image:
-      "https://images.unsplash.com/photo-1642201855395-1c8b44e6e42b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+    questionText: "Which tennis player has won 23 Grand Slam Titles",
+    image: 
+    "https://images.unsplash.com/photo-1519611103964-90f61a50d3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGVubmlzJTIwYmFsbHxlbnwwfHwwfHw%3D&w=1000&q=80",
     answers: [
-      "Trick question: nothing!",
-      "David Brown",
-      "Drive Better",
-      "Diane Blue",
+      "Trick question: none of them! It's Serena Williams",
+      "Roger Federer",
+      "Maria Sharapova",
+      "Rafael Nadal",
     ],
-    correctAnswerIndex: 1,
-  },
-  {
-    questionText: "Which car brand is this logo for?",
-    image: "https://www.carlogos.org/logo/Lexus-symbol-640x480.jpg",
-    answers: ["Lamborghini", "Lada", "Lotus", "Lexus"],
-    correctAnswerIndex: 3,
-  },
-  {
-    questionText: "Where in the UK is the MINI plant?",
-    image:
-      "https://images.unsplash.com/photo-1591439346018-9d5df732ab7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
-    answers: ["Oxford", "Cambridge", "London", "Edinburgh"],
     correctAnswerIndex: 0,
   },
   {
-    questionText:
-      "Which was the first James Bond film to include an Aston Martin?",
-    answers: ["Dr No", "From Russia with Love", "Goldfinger", "Thunderball"],
+    questionText: "What is the capital of Brazil?",
+    // image: "https://www.carlogos.org/logo/Lexus-symbol-640x480.jpg",
+    answers: ["Lisbon", "Rio de Janeiro", "Valencia", "São Paulo"],
+    correctAnswerIndex: 3,
+  },
+  {
+    questionText: "Where is this monolith located?",
+    image: "https://i.imgur.com/15Z9qy6.jpg",
+    answers: ["Sri Lanka", "Colombia", "Nigeria", "South Africa"],
     correctAnswerIndex: 2,
   },
   {
-    questionText: "What color were all Ferraris originally?",
-    answers: ["Yellow", "White", "Blue", "Red"],
-    correctAnswerIndex: 3,
+    questionText:
+      "What is the currency of Denmark?",
+    answers: ["Franc", "Euros", "Danish Ruble", "Krone"],
+    correctAnswerIndex: 2,
+  },
+  {
+    questionText: "What was the colour of Apple's first logo?",
+    answers: ["Rainbow", "Black & White", "Blue", "Black"],
+    correctAnswerIndex: 1,
   },
 ];
 

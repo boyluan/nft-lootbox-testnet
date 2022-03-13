@@ -1,12 +1,17 @@
 import axios from "axios";
 import Link from "next/link";
+
 import { FormEvent, useState } from "react";
+
 import {
   CheckAnswerPayload,
   CheckAnswerResponse,
 } from "../pages/api/check-answer";
+
 import PrimaryButton from "./primary-button";
 import invariant from "tiny-invariant";
+
+import { useWeb3 } from "@3rdweb/hooks";
 
 type Props = {
   questionIndex: number;
@@ -35,6 +40,14 @@ export default function QuizQuestion({
     undefined
   );
 
+  // The 'provider' represents a read-only connection to the blockchain network
+  // i.e. Polygon Mumbai's testnet
+  // It's a 'Provider' object from the 'ethers' library (ref. https://docs.ethers.io/v5/api/providers/provider/)
+  const { address, provider } = useWeb3();
+  if (!address) {
+    return <p>Please connect your wallet to take the quiz</p>
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -45,9 +58,29 @@ export default function QuizQuestion({
         "Answer index is required to submit"
       );
 
+      // Here, we're just making sure that the 'provider' is defined
+      // It will remain so, as long as the user's wallet is connected
+      invariant(
+        provider !== undefined,
+        "Provider must be defined to submit an answer"
+      );
+
+      // Here, we're asking the user's wallet to sign the 'message'
+      const message = 
+      "Please sign this message to confirm your identity and submit the answer. This won't cost any gas!"
+
+      // Note that when we call 'provider.getSigner()', we get a signer (contd. below)
+      // Which represents an account, and can be used to take actions on behalf of that account
+      // Here, we're using it to sign messages as the user
+      // We pass both the message and the signed message to the API
+      // Since we need BOTH (message + signed message) to get the address that signed the message
+      const signedMessage = await provider.getSigner().signMessage(message)
+
       const payload: CheckAnswerPayload = {
         questionIndex,
         answerIndex,
+        message,
+        signedMessage,
       };
 
       const checkResponse = await axios.post("/api/check-answer", payload);

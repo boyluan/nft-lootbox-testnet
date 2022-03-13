@@ -1,18 +1,44 @@
 import "../styles/globals.css";
 
+import { ThirdwebProvider } from "@3rdweb/react";
+
 import type { AppProps } from "next/app";
 import Layout from "../components/layout";
 import Head from "next/head";
 
+import { Toaster } from "react-hot-toast";
+
 export default function MyApp({ Component, pageProps }: AppProps) {
+  // Polygon Mumbai testnet Chain ID = 80001 (see https://chainlist.org)
+  const supportedChainIds= [80001];
+
+  // We'll only support MetaMask, which is an injected connector
+  const connectors = {
+    injected: {},
+  };
+
   return (
     <>
+      <Toaster />
       <Head>
         <title>{pageProps.title}</title>
       </Head>
-      <Layout title={pageProps.title}>
-        <Component {...pageProps} />
-      </Layout>
+      {/* The 'ThirdwebProvider' requires 2 props:
+      // 1) connectors - is a definition of which wallets we want to support (contd. below)
+      // We're going to use MetaMAsk, which is an injected wallet
+      // 2) supportedChainIds - is a list of Chain IDs that we want our dApp to support
+      // We need to be able to talk to the smart contracts that we deployed on the Mumbai testnet
+      // So that's the only chain we'll support for now (ref: https://chainlist.org/)
+      // Now all of the pages of our dApp will be able to access the thirdweb functionality
+      */}
+      <ThirdwebProvider 
+        connectors={connectors}
+        supportedChainIds={supportedChainIds}
+      >
+        <Layout title={pageProps.title}>
+          <Component {...pageProps} />
+        </Layout>
+      </ThirdwebProvider>
     </>
   );
 }

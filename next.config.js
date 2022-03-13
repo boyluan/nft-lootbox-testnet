@@ -2,6 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   experimental: {
+    // esmExternals: false,
     outputStandalone: true,
   },
 };
